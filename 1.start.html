@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app >
+<head>
+    <meta charset="UTF-8">
+    <title>{{name}}</title>
+</head>
+<body >
+<input type="text" ng-model="name">
+{{name}}
+<!--{{}}是将数据取到页面上-->
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    //当我们引入angularjs 后就会给你提供angular对象
+    //使用angular能不操作dom就不要操作
+    console.log(angular);
+    //双向绑定的实现，首先要将数据绑定在视图上 ，通过视图的改变，在将数据改变掉
+    //input能输入的地方才可以双向绑定
+    //在angular中所有angular自带的指令 都是以ng开头的
+    //将数据取到页面上
+    //ng-app 告诉angular当前页面以html节点为启动节点，来启动angular,启动范围一般为html
+
+    //angular的使用
+    //1.引入angularjs
+    //2.设置ng-app
+    //3.ng-model进行双向数据绑定
+    //4.将数据显示在页面上{{}}
+
+
+
+</script>
+</body>
+</html>
