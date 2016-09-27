@@ -27,7 +27,7 @@
         //$scope.name = 'zfpx';
     });
     //angular提供了数组的写法防止压缩，原因是字符串是不会被压缩的
-    app.controller("ctrl2",["$scope","$rootScope",function(a,b){a.name="jw"}]);
+    app.controller("ctrl2",["$rootScope","$scope",function(a,b){a.name="jw"}]);
     //控制器和我们的dom标签是平行的 作用范围就是当前标签的管理范围
     //控制器可以平行使用
     //控制器可以嵌套，将dom进行嵌套而不是我们的控制器

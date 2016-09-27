@@ -26,4 +26,37 @@
 ```
 npm install angular
 ```
-> 可以通过webstorm自带的命令行进行安装，(view->toolwidow> terminal)安装后会产生node_modules文件夹
+
+> 可以通过webstorm自带的命令行进行安装，(view->toolwindow> terminal)安装后会产生node_modules文件夹
+
+## 使用angular
+- 引入angularjs
+- ng-app($rootScope)
+- 想双向绑定的增加ng-model
+- {{}}三元，做表达式运算
+
+## 防止闪烁
+- ng-bind
+- ng-bind-template
+- ng-cloak
+
+## 模块化
+- 声明模块
+```
+var app = angular.model('appName',[],fn);
+//参数的位置可以改变，但是名字不能变
+app.run(['$rootScope',function(){}]);
+app.controller('ctrlName',['$rootScope','$scope',function($rootScope,$scope){ //$scope实现双向绑定的桥梁viewModel
+    
+}]);
+```
+> 在标签上增加ng-controller指定控制器的作用范围
+
+## ng-click
+```
+<button ng-click="fn(1,2,3)"></button>
+$scope.fn = function(a,b,c){
+}
+```
+
+## 绑定对象类型的数据
