@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
-<body>
+<body ng-controller="carCtrl">
 <table class="table table-bordered">
     <tr>
         <td><input type="checkbox">全选</td>
@@ -15,25 +15,36 @@
         <td>小计</td>
         <td>操作</td>
     </tr>
-    <tr>
+    <tr ng-repeat="product in products">
         <td><input type="checkbox"></td>
-        <td></td>
-        <td><button>-</button><input type="text"><button>+</button></td>
-        <td></td>
-        <td></td>
-        <td><button class="btn btn-danger">删除</button></td>
+        <td>{{product.name}}</td>
+        <td>
+            <button ng-click="product.count=product.count-1" ng-disabled="product.count<=1">-</button>
+            <!--ng-disabled 如果为true的时候此按钮会被禁用掉-->
+            <input type="text" ng-model="product.count">
+            <button ng-click="product.count=product.count+1">+</button>
+        </td>
+        <td>{{product.price}}</td>
+        <td>{{product.price*product.count}}</td>
+        <!--将要删除的数据传递到方法中-->
+        <td><button class="btn btn-danger" ng-click="del(product)">删除</button></td>
     </tr>
 </table>
 <script src="node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
     app.controller('carCtrl',function ($scope) {
-        $scope.products = [
+       $scope.products = [
             {name:'迈向Angular 2',price:44,count:1},
             {name:'西部数据（WD）',price:399,count:1},
             {name:'幻响（i-mu）iPhone6s',price:30,count:1},
             {name:'【京东超市】清风（APP)',price:50,count:1}
-        ]
+        ];
+       $scope.del = function (product) {
+           $scope.products = $scope.products.filter(function (item) {
+               return product!=item; //返回为true的 为false则被过滤掉了
+           });
+       }
     });
 </script>
 </body>
