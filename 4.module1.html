@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" ng-app="zfModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div ng-controller="ctrl1">
+    <!--<input type="text" ng-model="age">-->
+    <!--ng-model如果没有这个数据会在当前作用域下声明-->
+    {{name}}
+    <div ng-controller="ctrl2">
+        {{name}}
+    </div>
+</div>
+
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('zfModule',[]);
+    //app代表的就是当前模块
+    //尽量不要将rootScope拉到控制器上声明，不好维护
+    app.run(['$rootScope',function ($rootScope) {
+        //一般用来初始化变量（$rootScope）
+        $rootScope.name = 'zfpx';
+    }]);
+    app.controller('ctrl1',function ($scope) {
+        //$scope.name = 'zfpx';
+    });
+    //angular提供了数组的写法防止压缩，原因是字符串是不会被压缩的
+    app.controller("ctrl2",["$scope","$rootScope",function(a,b){a.name="jw"}]);
+    //控制器和我们的dom标签是平行的 作用范围就是当前标签的管理范围
+    //控制器可以平行使用
+    //控制器可以嵌套，将dom进行嵌套而不是我们的控制器
+</script>
+</body>
+</html>
