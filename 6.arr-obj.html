@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--要循环谁 就要在谁身上写指令-->
+<div ng-controller="myCtrl">
+    <ul>
+        <li ng-repeat="value in arrs track by $index">
+            {{value}}{{$index}}
+            <!--在数组中，遍历时最好增加track by $index 防止循环时无法通过不是唯一值遍历-->
+            <!-- {{$even}} {{$odd}} {{$first}}{{$last}}-->
+        </li>
+    </ul>
+</div>
+
+
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        $scope.arrs = ['苹果','苹果','小米'];
+        $scope.phones = [{name:'苹果',type:['白色','金色','灰色']},{name:'小米',type:['白色','黑色']},{name:'华为',type:['白色']}];
+    });
+</script>
+</body>
+</html>
