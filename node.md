@@ -60,3 +60,11 @@ $scope.fn = function(a,b,c){
 ```
 
 ## 绑定对象类型的数据
+
+
+
+## bootstrap
+- 样式的框架,提供了美丽的样式库，还封装了很多插件基于jquery的
+```
+npm i bootstrap
+```
