@@ -15,18 +15,36 @@
         </li>
     </ul>
 </div>-->
+<!--<div ng-controller="myCtrl">
+    <ul>
+        <li ng-repeat="(parentKey,phone) in phones track by $index">
+            {{phone.name}}
+            <ul>
+                <li ng-repeat="(chikdKey,t) in phone.type track by $index">
+                    {{t}}{{parentKey}}{{chikdKey}}
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>-->
+
 <div ng-controller="myCtrl">
     <ul>
-        <li ng-repeat="phone in phones track by $index">
+        <!--保留下来，在当前作用域下保留父亲的
+            ng-init就是在当前作用域下声明一个变量（基本不会使用），在控制器声明数据
+        -->
+        <li ng-repeat="phone in phones track by $index" ng-init="parent=$index">
             {{phone.name}}
             <ul>
                 <li ng-repeat="t in phone.type track by $index">
-                    {{t}}
+                    {{t}}{{$index}} {{parent}}
                 </li>
             </ul>
         </li>
     </ul>
 </div>
+
+
 <!--ng-repeat会创建作用域-->
 <script src="node_modules/angular/angular.js"></script>
 <script>
