@@ -44,7 +44,11 @@
     </ul>
 </div>
 
-
+<div ng-controller="myCtrl">
+    <li ng-repeat="(key,o) in obj">
+        {{o}}{{key}}
+    </li>
+</div>
 <!--ng-repeat会创建作用域-->
 <script src="node_modules/angular/angular.js"></script>
 <script>
@@ -52,6 +56,12 @@
     app.controller('myCtrl',function ($scope) {
         $scope.arrs = ['苹果','苹果','小米'];
         $scope.phones = [{name:'苹果',type:['白色','金色','灰色']},{name:'小米',type:['白色','黑色']},{name:'华为',type:['白色']}];
+        $scope.obj = {
+            name:'zfpx',
+            age:'8',
+            address:'回龙观东大街'
+        };
+        // 无论是对象还是数组通过for in 取出来的永远是我们value值
     });
 </script>
 </body>
