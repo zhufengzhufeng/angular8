@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app>
+<input type="text" ng-model="name">
+<input type="text" ng-model="age">
+{{name?name:'zfpx'}}
+<!--<div ng-bind="name"></div>-->
+<!--<div ng-bind-template="{{name}} {{age}}"></div>-->
+<div ng-cloak>
+    {{name}}
+    <div>{{age}}
+    {{name}}
+    </div>
+</div>
+<style>
+    /*[]是属性选择器*/
+    [ng-cloak]{
+        display: none;
+    }
+</style>
+<!--{{name+age}}-->
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    //{{}}表达式中可以使用三元表达式，js默认底部
+    //默认表达式会造成页面的闪烁,因为angular未加载完导致的页面闪烁
+    //通过ng-bind指令可以绑定单一的数据避免闪烁,必须加载标签元素上，而不能绑定多个
+    //ng-bind-template 绑定多个属性，也不能嵌套
+    //ng-cloak 防止闪烁,实现原理先将div隐藏掉，当angular加载完成后，在让其显示
+
+    //{{}}会闪烁
+    //ng-bind 只能绑定一个元素，并且不能嵌套
+    //ng-bind-template 绑定多个元素，不能嵌套
+    //ng-cloak刚开始隐藏，angular加载完后，会将ng-cloak属性移除掉，将渲染好的数据显示在页面上
+
+    //此时所有数据都绑定在了根作用域下，没有实现模块化
+
+</script>
+</body>
+</html>
