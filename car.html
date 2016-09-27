@@ -29,6 +29,9 @@
         <!--将要删除的数据传递到方法中-->
         <td><button class="btn btn-danger" ng-click="del(product)">删除</button></td>
     </tr>
+    <tr>
+        <td colspan="6">总价 {{total()}}</td>
+    </tr>
 </table>
 <script src="node_modules/angular/angular.js"></script>
 <script>
@@ -44,8 +47,17 @@
            $scope.products = $scope.products.filter(function (item) {
                return product!=item; //返回为true的 为false则被过滤掉了
            });
-       }
+       };
+        //求总价，循环出每一项进行累加求和， 此方法，当页面上的数据更改时，angular会做脏值检查，更新需要更新的值
+        $scope.total = function () {
+            var sum = 0;
+            $scope.products.forEach(function (product) {
+                sum += product.price*product.count;
+            });
+            return sum;
+        }
     });
+
 </script>
 </body>
 </html>
