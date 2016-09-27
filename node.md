@@ -72,8 +72,10 @@ $scope.fn = function(a,b,c){
 npm i bootstrap
 ```
 
-## ng-disabled禁用
-> 所有表单元素 想双向绑定必须增加ng-model属性
+## ng-disabled禁用  
+
+> 所有表单元素 想双向绑定必须增加ng-model属性  
+
 ## 数组的方法
 - filter 为false过滤掉
 - find 找到为true的那一项
