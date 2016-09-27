@@ -6,15 +6,28 @@
 </head>
 <body>
 <!--要循环谁 就要在谁身上写指令-->
-<div ng-controller="myCtrl">
+<!--<div ng-controller="myCtrl">
     <ul>
         <li ng-repeat="value in arrs track by $index">
             {{value}}{{$index}}
-            <!--在数组中，遍历时最好增加track by $index 防止循环时无法通过不是唯一值遍历-->
-            <!-- {{$even}} {{$odd}} {{$first}}{{$last}}-->
+            &lt;!&ndash;在数组中，遍历时最好增加track by $index 防止循环时无法通过不是唯一值遍历&ndash;&gt;
+            &lt;!&ndash; {{$even}} {{$odd}} {{$first}}{{$last}}&ndash;&gt;
+        </li>
+    </ul>
+</div>-->
+<div ng-controller="myCtrl">
+    <ul>
+        <li ng-repeat="phone in phones track by $index">
+            {{phone.name}}
+            <ul>
+                <li ng-repeat="t in phone.type track by $index">
+                    {{t}}
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
+<!--ng-repeat会创建作用域-->
 <script src="node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
