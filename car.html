@@ -8,7 +8,7 @@
 <body ng-controller="carCtrl">
 <table class="table table-bordered">
     <tr>
-        <td><input type="checkbox" ng-model="selectAll" ng-click="">全选</td>
+        <td><input type="checkbox" ng-model="selectAll" ng-click="selectOn()">全选</td>
         <td>商品</td>
         <td>数量</td>
         <td>单价</td>
@@ -16,7 +16,7 @@
         <td>操作</td>
     </tr>
     <tr ng-repeat="product in products">
-        <td><input type="checkbox" ng-model="product.selected" ng-click=""></td>
+        <td><input type="checkbox" ng-model="product.selected" ng-click="selectOne()"></td>
         <td>{{product.name}}</td>
         <td>
             <button ng-click="product.count=product.count-1" ng-disabled="product.count<=1">-</button>
@@ -39,7 +39,7 @@
     app.controller('carCtrl',function ($scope) {
        $scope.products = [
             {name:'迈向Angular 2',price:44,count:1,selected:true},
-            {name:'西部数据（WD）',price:399,count:1,selected:false},
+            {name:'西部数据（WD）',price:399,count:1,selected:true},
             {name:'幻响（i-mu）iPhone6s',price:30,count:1,selected:true},
             {name:'【京东超市】清风（APP)',price:50,count:1,selected:true}
         ];
@@ -56,9 +56,25 @@
             });
             return sum;
         }
-
+        //全选全不选
+        $scope.selectOn = function () {
+            //下面的按钮都根据我们的selectAll的值来写
+            $scope.products.forEach(function (product) {
+                product.selected = $scope.selectAll;
+            });
+        };
+        //下面的选择后要进行判断 如果有一个没选中则为没选中，如果都选中了则为true
+        function s() { //先执行一次对代码进行一次处理
+            var flag = true;
+            $scope.products.forEach(function (product) {
+                if(!product.selected)flag=false;
+            });
+            $scope.selectAll = flag;
+        }
+        s();
+        $scope.selectOne =s;
     });
-
+    //选中多少个商品  删除选中商品 只算出选中的价格
 </script>
 </body>
 </html>

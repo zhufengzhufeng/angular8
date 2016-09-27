@@ -60,11 +60,22 @@ $scope.fn = function(a,b,c){
 ```
 
 ## 绑定对象类型的数据
-
-
-
+- 数组和对象
+```
+<div ng-repeat="(key,value) in arrs track by $index" ng-init>
+    {{$index}}{{$last}}....
+<div>
+```
 ## bootstrap
 - 样式的框架,提供了美丽的样式库，还封装了很多插件基于jquery的
 ```
 npm i bootstrap
 ```
+
+## ng-disabled禁用
+> 所有表单元素 想双向绑定必须增加ng-model属性
+## 数组的方法
+- filter 为false过滤掉
+- find 找到为true的那一项
+- forEach 遍历
+- map 映射新的数组
