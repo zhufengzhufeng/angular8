@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 <body ng-controller="myCtrl">
-<panel title="title1">
+<panel title="title1" s="say(title)">
     Hello World
 </panel>
-<panel title="title2">
+<panel title="title2" s="say(title)">
     angular baby
 </panel>
 <script src="../node_modules/angular/angular.js"></script>
@@ -37,7 +37,8 @@
             //默认的指令中不会产生独立作用域，想要产生独立作用域，为了互不影响
             //scope:true, 不断绝关系
             scope:{
-                title:'='
+                title:'=',
+                n:'&s'
             } //断绝了关系，无法继承作用域上的任何属性
         }
     });
