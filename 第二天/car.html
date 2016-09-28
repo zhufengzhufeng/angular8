@@ -58,13 +58,13 @@
     //$sce帮我们将html解析出来的angular自带的服务
     //依赖注入，你只要想使用它，就要把把他注入进来
     app.controller('carCtrl',function ($sce,$scope) {
-       $scope.products = [
+        $scope.products = [
             {name:'迈向Angular 2',price:44,count:1,selected:true},
             {name:'西部数据（WD）',price:399,count:1,selected:true},
             {name:'幻响（i-mu）iPhone6s',price:30,count:1,selected:true},
             {name:'【京东超市】清风（APP)',price:50,count:1,selected:true}
         ];
-       $scope.del = function (product) {
+        $scope.del = function (product) {
            $scope.products = $scope.products.filter(function (item) {
                return product!=item; //返回为true的 为false则被过滤掉了
            });

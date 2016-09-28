@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<my-hello></my-hello>
+<!--指令 扩展功能 封装插件
+    装饰型指令 (美化，增加功能)
+    组件式指令 (编译出代码片段实现例如弹层，表格)
+-->
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //指令依赖于控制器吗？ 指令可以完全不依赖于控制器
+    //通过模块来创建指令 (驼峰命名法)
+    //param1代表指令的名字
+    //param2代表指令的定义默认返回对象
+    app.directive('myHello',function () {
+        return {
+            //es6语法提供的模板字符串，可以帮我们快速的拼字符串
+            template:`<h1>hello</h1><p>逗你玩</p>`
+        }
+    });
+</script>
+</body>
+</html>
