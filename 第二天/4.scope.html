@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="myCtrl">
+<hello></hello>
+</div>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    //指令和控制器间的交互，指令中需要使用控制中的数据
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',['$scope',function ($scope) {
+        $scope.name = 123;
+    }]);
+    app.directive('hello',function () {
+        return {
+            template:'<div>{{name}}</div>',
+            //scope:{},//完全断绝关系
+            scope:true//保留一下
+        }
+    })
+</script>
+</body>
+</html>
