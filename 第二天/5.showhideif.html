@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .none{
+            display: none;
+        }
+        .block{
+            display: block;
+        }
+    </style>
+</head>
+<body ng-controller="myCtrl">
+<span ng-click="flag = !flag">{{!flag?'点击':'隐藏'}}/</span>
+<div ng-if="!flag">这是列表中的内容{{name}}</div>
+<ul ng-hide="arr.length">
+    <li ng-repeat="a in arr">{{a}}</li>
+</ul>
+<script src='../node_modules/angular/angular.js'></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        $scope.flag = true;
+        $scope.name = 100;
+        $scope.arr = ['苹果'];
+    });
+    //ng-show ng-hide只是简单的操作样式, ng-show/ng-hide 会强制执行所有代码
+    //ng-if如果不满组条件则，内部代码不执行
+    //频繁切换使用ng-show ng-hide，第一次消耗比较大
+    //ng-if如果不满足内部指令不执行，但是频繁切换时性能消耗较大,搭配ng-repeat判断数据是否存在
+</script>
+</body>
+</html>
