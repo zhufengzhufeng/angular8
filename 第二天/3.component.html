@@ -18,7 +18,10 @@
     app.controller('myCtrl',function ($scope) {
         $scope.title1='第一篇文章';
         $scope.title2='第二篇文章';
-    })
+        $scope.say = function (title) {
+            alert(title)
+        }
+    });
     app.directive('panel',function () {
         return {
             //angular 通过模板来调用,通过url地址来引入我们的模板

@@ -11,9 +11,9 @@
 <script>
     var app = angular.module('appModule',[]);
     app.controller('myCtrl',function ($scope) {
-            $scope.say = function (who,age) {
-                alert(who+age);
-            }
+        $scope.say = function (who,age) {
+            alert(who+age);
+        }
     });
     app.directive('hello',function () {
         return {
