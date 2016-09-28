@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div drag></div>
+<div drag></div>
+<div drag></div>
+<style>
+    div{
+        background: red;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top:0;
+        left:0;
+    }
+    div+div{
+        background: yellow;
+    }
+    div+div+div{
+        background: blue;
+    }
+</style>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //指令默认不会创建作用域
+    app.directive('drag',function () {
+        return {
+            //link函数是唯一一个可以操作dom的地方
+            //将我们的视图和数据进行绑定的（链接函数）
+            link:function (scope,element,attrs) {//形参
+                //mousedown  mousemove mouseup
+                var disX,disY;
+                element.on('mousedown',function (e) {
+                    disX = e.pageX - this.offsetLeft; //鼠标距离盒子的距离
+                    disY = e.pageY - this.offsetTop;
+                    //给element绑定移动较快，会导致脱离焦点，最好的办法是绑定在document上不会失去焦点
+                    angular.element(document).on('mousemove',function (e) {
+                        //在angular中使用必须增加单位
+                        element.css({
+                            top:e.pageY - disY+'px', //计算盒子距离浏览的边缘的位置
+                            left:e.pageX - disX+'px'
+                        });
+                    });
+                    angular.element(document).on('mouseup',function () {
+                        angular.element(document).off();
+                    });
+                });
+
+                //console.log(attrs);
+                //console.log(angular.element(document));
+                //scope代表当前作用域
+                //element 当前指令所在的元素默认为jq对象 ,用angular.element包住的元素就是jq对象
+                //attrs 表示当前元素的属性
+            }
+        }
+    });
+</script>
+</body>
+</html>

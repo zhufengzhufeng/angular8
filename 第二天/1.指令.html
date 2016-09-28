@@ -7,12 +7,16 @@
 
 <body>
 <my-hello></my-hello>
+<div my-hello></div>
+<div class="my-hello"></div>
+<!-- directive:my-hello -->
 <!--指令 扩展功能 封装插件
     装饰型指令 (美化，增加功能)
     组件式指令 (编译出代码片段实现例如弹层，表格)
 -->
 <script src="../node_modules/angular/angular.js"></script>
 <script>
+    //自定义指令 （封装作用）
     var app = angular.module('appModule',[]);
     //指令依赖于控制器吗？ 指令可以完全不依赖于控制器
     //通过模块来创建指令 (驼峰命名法)
@@ -21,9 +25,14 @@
     app.directive('myHello',function () {
         return {
             //es6语法提供的模板字符串，可以帮我们快速的拼字符串
-            template:`<h1>hello</h1><p>逗你玩</p>`
+            //restrict限定使用范围 默认的使用范围就是element attribute
+            restrict:'ECMA', //可以限定使用范围
+            replace:true,//默认是将我们的模板插入到自定义指令中，注释模板不显示，将最外层的标签替换掉（并且要替换的模板只能有一个根节点）
+            template:`<div><h1>hello</h1>
+                      <p>逗你玩</p></div>`
         }
     });
+    //四种可以限制使用范围 restrict:E element C class M comment A attribute
 </script>
 </body>
 </html>
