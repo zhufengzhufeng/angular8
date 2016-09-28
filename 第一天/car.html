@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 <body ng-controller="carCtrl">
 <table class="table table-bordered">
@@ -33,7 +33,7 @@
         <td colspan="6">总价 {{total()}}</td>
     </tr>
 </table>
-<script src="node_modules/angular/angular.js"></script>
+<script src="../node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
     app.controller('carCtrl',function ($scope) {
@@ -55,7 +55,7 @@
                 sum += product.price*product.count;
             });
             return sum;
-        }
+        };
         //全选全不选
         $scope.selectOn = function () {
             //下面的按钮都根据我们的selectAll的值来写

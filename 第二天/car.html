@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="carCtrl">
+<table class="table table-bordered">
+    <tr>
+        <td><input type="checkbox" ng-model="selectAll" ng-click="selectOn()">全选</td>
+        <td>商品</td>
+        <td>数量</td>
+        <td>单价</td>
+        <td>小计</td>
+        <td>操作</td>
+    </tr>
+    <tr ng-repeat="product in products">
+        <td><input type="checkbox" ng-model="product.selected" ng-click="selectOne()"></td>
+        <td>{{product.name}}</td>
+        <td>
+            <button ng-click="product.count=product.count-1" ng-disabled="product.count<=1">-</button>
+            <!--ng-disabled 如果为true的时候此按钮会被禁用掉-->
+            <input type="text" ng-model="product.count">
+            <button ng-click="product.count=product.count+1">+</button>
+        </td>
+        <td>{{product.price}}</td>
+        <td>{{product.price*product.count}}</td>
+        <!--将要删除的数据传递到方法中-->
+        <td><button class="btn btn-danger" ng-click="del(product)">删除</button></td>
+    </tr>
+    <tr>
+        <td colspan="6">总价 {{total()}} <button class="btn btn-warning" ng-click="delAll()">删除选中商品</button>
+            <!--ng-repeat-->
+            <!--c.value作为程序员可见，c.val用作用户可见，单个的在所有的里面遍历-->
+            <select ng-model="changeCote" ng-options="c.value as c.val for c in cotes">
+                <!--<option value="">请选择</option>-->
+            </select>
+            {{total()*changeCote*0.1 }}
+            <!--  <select ng-model="changeCote">
+                <option value="{{c.value}}"  ng-repeat="c in cotes">
+                    {{c.val}}
+                </option>
+            </select>-->
+            <!--<select ng-model="changeCote" ng-change="changeSize()">
+                <option value="222" ng-selected="true">打一折</option>
+                <option value="111">打二折</option>
+                <option value="333">打三折</option>
+            </select>-->
+        </td>
+    </tr>
+</table>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('carCtrl',function ($scope) {
+       $scope.products = [
+            {name:'迈向Angular 2',price:44,count:1,selected:true},
+            {name:'西部数据（WD）',price:399,count:1,selected:true},
+            {name:'幻响（i-mu）iPhone6s',price:30,count:1,selected:true},
+            {name:'【京东超市】清风（APP)',price:50,count:1,selected:true}
+        ];
+       $scope.del = function (product) {
+           $scope.products = $scope.products.filter(function (item) {
+               return product!=item; //返回为true的 为false则被过滤掉了
+           });
+       };
+        //求总价，循环出每一项进行累加求和， 此方法，当页面上的数据更改时，angular会做脏值检查，更新需要更新的值
+        $scope.total = function () {
+            var sum = 0;
+            $scope.products.forEach(function (product) {
+                sum += product.price*product.count;
+            });
+            return sum;
+        };
+        //全选全不选
+        $scope.selectOn = function () {
+            //下面的按钮都根据我们的selectAll的值来写
+            $scope.products.forEach(function (product) {
+                product.selected = $scope.selectAll;
+            });
+        };
+        //下面的选择后要进行判断 如果有一个没选中则为没选中，如果都选中了则为true
+        function s() { //先执行一次对代码进行一次处理
+            var flag = true;
+            $scope.products.forEach(function (product) {
+                if(!product.selected)flag=false;
+            });
+            $scope.selectAll = flag;
+        }
+        s();
+        $scope.selectOne =s;
+        //删除选中的
+        $scope.delAll = function () {
+            $scope.products.forEach(function (item) {
+                if(item.selected){ //如果为选中状态则删除这条数据
+                    $scope.del(item);// 掉删除一个
+                }
+            })
+        };
+        $scope.changeSize = function () {
+            alert($scope.changeCote)
+        };
+        $scope.cotes = [
+            {value:1,val:'一折'},
+            {value:2,val:'二折'},
+            {value:3,val:'三折'},
+            {value:4,val:'四折'},
+            {value:5,val:'五折'},
+        ]
+        $scope.changeCote = 5; //设置动态数据的默认值
+    });
+    //选中多少个商品  删除选中商品 只算出选中的价格
+
+    //控制器的特点 ：
+    //1.创建控制器会有一个$scope,我们把数据挂载在$scope就可以实现双向绑定（在控制器声明的属性，可以在当前作用域下获取到）
+    //2.依赖注入
+    //3.DOM和控制器的作用范围是平行的
+    //4.控制器可以嵌套，控制器所在dom标签可以嵌套
+    //5.控制是不能复用的，而且作用仅是控制（不要操作dom） 唯一可以操作的地方是link函数
+
+    //显示打折后的价格 通过下拉菜单显示1-9折
+
+
+
+</script>
+</body>
+</html>
