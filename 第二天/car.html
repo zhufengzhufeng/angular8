@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 <body ng-controller="carCtrl">
+<div ng-bind-html="html"></div>
 <table class="table table-bordered">
     <tr>
         <td><input type="checkbox" ng-model="selectAll" ng-click="selectOn()">全选</td>
@@ -20,8 +21,8 @@
         <td>{{product.name}}</td>
         <td>
             <button ng-click="product.count=product.count-1" ng-disabled="product.count<=1">-</button>
-            <!--ng-disabled 如果为true的时候此按钮会被禁用掉-->
-            <input type="text" ng-model="product.count">
+            <!--ng-disabled 如果为true的时候此按钮会被禁用掉,ng-readonly="true"表示仅读-->
+            <input type="text" ng-model="product.count" ng-readonly="true">
             <button ng-click="product.count=product.count+1">+</button>
         </td>
         <td>{{product.price}}</td>
@@ -34,7 +35,8 @@
             <!--ng-repeat-->
             <!--c.value作为程序员可见，c.val用作用户可见，单个的在所有的里面遍历-->
             <select ng-model="changeCote" ng-options="c.value as c.val for c in cotes">
-                <!--<option value="">请选择</option>-->
+                <!--给value 但是不要给值-->
+                <option value="">请选择</option>
             </select>
             {{total()*changeCote*0.1 }}
             <!--  <select ng-model="changeCote">
@@ -53,7 +55,9 @@
 <script src="../node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
-    app.controller('carCtrl',function ($scope) {
+    //$sce帮我们将html解析出来的angular自带的服务
+    //依赖注入，你只要想使用它，就要把把他注入进来
+    app.controller('carCtrl',function ($sce,$scope) {
        $scope.products = [
             {name:'迈向Angular 2',price:44,count:1,selected:true},
             {name:'西部数据（WD）',price:399,count:1,selected:true},
@@ -107,8 +111,10 @@
             {value:3,val:'三折'},
             {value:4,val:'四折'},
             {value:5,val:'五折'},
-        ]
-        $scope.changeCote = 5; //设置动态数据的默认值
+        ];
+        $scope.changeCote =10; //设置动态数据的默认值
+        //网页不识别，需要用ng-bind-html 来解析
+        $scope.html =  $sce.trustAsHtml('<h1>这是购物车项目</h1>');
     });
     //选中多少个商品  删除选中商品 只算出选中的价格
 
