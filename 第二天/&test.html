@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="myCtrl">
+<hello s="say()"></hello>
+<!--引用的当前作用域的函数-->
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+            $scope.say = function () {
+                alert(1);
+            }
+    });
+    app.directive('hello',function () {
+        return {
+            template:'<button ng-click="n()"></button>',
+            scope:{
+                //要在自己家声明一个函数
+                n:'&s'  //获取传递的那个函数
+            }
+        }
+    });
+</script>
+</body>
+</html>
