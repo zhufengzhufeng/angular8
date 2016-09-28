@@ -5,11 +5,11 @@
     <title>Document</title>
 </head>
 <body>
-<div drag></div>
+<div drag>123</div>
 <div drag></div>
 <div drag></div>
 <style>
-    div{
+    div,p{
         background: red;
         width: 100px;
         height: 100px;
@@ -46,9 +46,11 @@
                             left:e.pageX - disX+'px'
                         });
                     });
+                    //鼠标抬起事件
                     angular.element(document).on('mouseup',function () {
                         angular.element(document).off();
                     });
+                    e.preventDefault();
                 });
 
                 //console.log(attrs);

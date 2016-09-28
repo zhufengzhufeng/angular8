@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<panel></panel>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('panel',function () {
+        return {
+            //angular 通过模板来调用,通过url地址来引入我们的模板
+            templateUrl:'tmpl/panel.html'
+        }
+    })
+</script>
+</body>
+</html>
