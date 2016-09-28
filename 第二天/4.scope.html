@@ -6,7 +6,8 @@
 </head>
 <body>
 <div ng-controller="myCtrl">
-<hello title="{{name}}" ></hello>
+<hello name="{{name}}"></hello>
+外面的<input type="text" ng-model="name">
 </div>
 <script src="../node_modules/angular/angular.js"></script>
 <script>
@@ -17,17 +18,18 @@
     }]);
     app.directive('hello',function () {
         return {
-            template:'<div>{{title}}</div>',
-            link:function (scope,element,attrs) {
-                //scope.title = attrs['title']
-            },
+            template:'<div>里面的<input type="text" ng-model="name"></div>',
             scope:{
-                title:'@'//引用的是title属性的"字符串"，如果名字相同，可以省略
+//              scope.name = 123
+                name:'@name'//引用的是title属性的"字符串"，如果名字相同，可以省略
             }
             //scope:{},//完全断绝关系
             //scope:true//保留一下   都会创建独立作用域
         }
-    })
+    });
+    //@ 绑定的是字符串  {{name}}  = 123 =>name=123 传入给指令，在指令中又声明了一个name把123给了这个name
+    //1.你改变外面的 会影响到{{name}}  = 456 =>name=456传入给指令，值发生变化，
+    //2.把里面的name改变了，里面和外面不是一个东西，所以无法改变外面的内容
 </script>
 </body>
 </html>
