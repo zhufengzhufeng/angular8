@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="myCtrl">
+{{age}}
+<!--name是从当前作用域取出来的-->
+<input type="text" zf-model="age">
+{{name}}
+<input type="text" zf-model="name">
+<!--ng-model 是一个什么东西？
+   指令
+   1.将input输入的内容放置到当前作用域下
+-->
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope,$timeout) {
+        $timeout(function () {
+            $scope.age = 400;
+        },3000)
+    })
+    app.directive('zfModel',function () {
+        return {
+            link:function (scope,element,attrs) {
+                //监控用户改变 改变内容
+                element.on('input',function () { //不是angular的方法，不会触发脏值检查
+                    //通过属性取到的值
+                    scope[attrs['zfModel']] = this.value;
+                    scope.$apply();
+                });
+                //监控数据变化，刷新视图
+                scope.$watch(attrs['zfModel'],function (newVal,oldVal) {
+                    element.val(newVal);
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

@@ -31,8 +31,13 @@
         $scope.age=1;
         var timer = $interval(function () { //这是angular自带的方法，所以会自动检查
             $scope.age += 1;
+            //$scope.$apply(); 已经在脏只检查中的内容，就不要在检查了
         },1000);
         $interval.cancel(timer); //取消定时器
+        //ng-change和watch有什么区别?  ng-change是纯事件，和watch无关，watch是监听数据变化
+
+
+        //$watch $apply
     });
 </script>
 </body>

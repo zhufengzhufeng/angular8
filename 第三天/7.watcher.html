@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="myCtrl">
+{{name}} {{age}}
+<input type="text" ng-change="go()" ng-model="val">
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    //ng-change和watch有什么区别?
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope,$interval,$timeout){
+            /*$scope.go = function () {
+                console.log($scope.val);
+            };*/
+            $scope.name = 1;
+            $scope.age = 1;
+            $timeout(function () {
+                $scope.name = 2;
+            },1000);
+            $scope.$watch('name',function (newVal,oldVal) {
+               $scope.age+=1;
+            });
+            //console.log($scope);
+    })
+    
+</script>
+</body>
+</html>
