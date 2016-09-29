@@ -25,18 +25,26 @@
         margin-bottom: 20px;
     }
 </style>
-<open title="这是标题">这是内容</open>
-<open title="这是标题">这是内容</open>
+<open title="这是标题" >这是内容</open>
+<open title="这是标题"> 这是内容</open>
 <open title="这是标题">这是内容</open>
 <!--点击标题 ，让内容区域显示/隐藏 ，菜单的头部的数据需要动态获取，内容也动态获取-->
 <script src="../node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
+    //此open只能控制单个，不能控制一组，因为指令之间没有关系 ，父子关系就可以让父亲管理儿子的状态
     app.directive('open',function () {
         return {
             templateUrl:'tmpl/open.html',
             transclude:true,
-            scope:{
+            //在指令的变量，如果不是传进来的，那么一定要定义在当前作用域下，link函数中的scope中
+            link:function (scope,element,attrs) {
+                scope.flag = false; //在当前作用域上声明属性可以在模板上使用
+                scope.show = function () {
+                    scope.flag = !scope.flag;
+                }
+            },
+            scope:{ //只能引用指令上的属性
                 tit:'@title'//$scope.tit = '这是标题'
             }
         }

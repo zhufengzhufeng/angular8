@@ -1,6 +1,6 @@
 <div class="content">
-    <div class="header">{{tit}}</div>
+    <div class="header" ng-click="show()">{{tit}}</div>
     <!--放标题-->
-    <div class="body" ng-transclude></div>
+    <div class="body" ng-transclude ng-show="flag"></div>
     <!--放内容-->
 </div>
