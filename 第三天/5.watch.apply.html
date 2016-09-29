@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    {{name}}
+    <input type="text" ng-model="name">
+</div>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        console.log($scope);
+        $scope.name = 1;
+        //$watch主要用来观察，观察模型的变化
+        //1.$watch 观察的作用
+        $scope.$watch("name",function (newVal,oldVal) {
+            console.log(newVal,oldVal);
+        });
+    });
+</script>
+</body>
+</html>

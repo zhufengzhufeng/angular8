@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    总价格{{total}} <br>
+    {{product.name}} {{product.price}} <input type="text" ng-model="product.count"> <br>
+    {{age}}
+</div>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope,$interval,$timeout) { //依赖注入
+        $scope.name = 1;
+        $scope.product = {name:'飞机',count:1,price:20};
+        //正常情况下，不会对对象里的内容，进行检测我们可以指定第二个参数为true时才会进行深度比较
+        $scope.$watch('product',function (newVal,oldVal) {
+            $scope.total = newVal.count*$scope.product.price;
+        },true);//watch也会触发一个监听者
+        //双向绑定分为两步 1.监听数据的变化 2.将页面上的值刷新
+        //js是单线程的
+        //angular当数据变化时，如果是angular自带的ng-都会自动触发一个函数$apply
+        /*$scope.age=1;
+        setInterval(function () {
+            $scope.age += 1; //自己的方法 不会触发脏只检查，也就是不会调用$apply
+            $scope.$apply();//调用方法后会将watch数组中的每一项进行比对，如果有变化刷新视图
+        },1000);*/
+        $scope.age=1;
+        var timer = $interval(function () { //这是angular自带的方法，所以会自动检查
+            $scope.age += 1;
+        },1000);
+        $interval.cancel(timer); //取消定时器
+    });
+</script>
+</body>
+</html>
