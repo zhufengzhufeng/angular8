@@ -33,7 +33,7 @@
                 });
                 //监控数据变化，刷新视图
                 scope.$watch(attrs['zfModel'],function (newVal,oldVal) {
-                    element.val(newVal);
+                    element[0].value = newVal;
                 });
             }
         }
