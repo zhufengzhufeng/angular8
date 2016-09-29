@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<girl love-money>xxxx美女</girl>
+<girl love-money love-cry>xxxx美女</girl>
+<!--必须是女生上的品质，要依赖于girl的指令-->
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('girl',function () {
+        return {
+            //girl需要来一个空间来存放loveMoney loveCry的品质
+            controller:function ($scope) { //创造公有内容的，和普通的控制器一样
+                $scope.arr = [];
+                this.add = function (kinds) {
+                    $scope.arr.push(kinds);//girl将品质融入到自己里了
+                };
+            },
+            //link函数可以操作当前指令
+            link:function (scope,element,attrs) {
+                //添加点击事件，弹出作用域上的内容
+                element.on('click',function () {
+                    alert(scope.arr);
+                });
+            }
+        }
+    });
+    app.directive('loveMoney',function () {
+        return {
+            require:'?^girl',//在平级下找,找不到找上级，在找不到报错了
+            //因为loveMoney是依赖于gril
+            //girlCtrl 是girl的控制的实例,可以调用掉girl控制器上的私有方法
+            link:function (scope,element,attrs,girlCtrl) {
+                girlCtrl.add('loveMoney')
+            }
+        }
+    });
+    /*app.directive('loveCry',function () {
+        return {
+            require:'girl'
+        }
+    });*/
+</script>
+</body>
+</html>
