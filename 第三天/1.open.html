@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .header{
+        width: 100px;
+        height: 40px;
+        line-height: 40px;
+        background: -webkit-linear-gradient(top,blue,red);
+        color:#fff
+    }
+    .body{
+        width: 100px;
+        height: 100px;
+        background: black;
+        -webkit-box-reflect:below 0 -webkit-linear-gradient(transparent,transparent 50%,rgba(255,255,255,.3));
+        color: #fff;
+        margin-bottom: 20px;
+    }
+</style>
+<open title="这是标题">这是内容</open>
+<!--点击标题 ，让内容区域显示/隐藏 ，菜单的头部的数据需要动态获取，内容也动态获取-->
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('open',function () {
+        return {
+            templateUrl:'tmpl/open.html',
+            transclude:true,
+            scope:{
+                tit:'@title'//$scope.tit = '这是标题'
+            }
+        }
+    });
+</script>
+</body>
+</html>
