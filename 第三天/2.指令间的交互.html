@@ -11,7 +11,7 @@
 <script src="../node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
-    app.directive('girl',function () {
+    app.directive('girl',function () {//指令默认不会产生独立作用域
         return {
             //girl需要来一个空间来存放loveMoney loveCry的品质
             controller:function ($scope) { //创造公有内容的，和普通的控制器一样
@@ -26,7 +26,8 @@
                 element.on('click',function () {
                     alert(scope.arr);
                 });
-            }
+            },
+            scope:{} //如果想产生独立作用域必须scope:{}
         }
     });
     app.directive('loveMoney',function () {
@@ -39,11 +40,14 @@
             }
         }
     });
-    /*app.directive('loveCry',function () {
+    app.directive('loveCry',function () {
         return {
-            require:'girl'
+            require:'girl',
+            link:function (scope,element,attrs,gCtrl) {
+                gCtrl.add('loveCry');
+            }
         }
-    });*/
+    });
 </script>
 </body>
 </html>

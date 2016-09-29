@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>opener组</title>
+</head>
+<body>
+<style>
+    .content{
+        width: 100px;float: left;
+    }
+    .header{
+        width: 100px;
+        height: 40px;
+        line-height: 40px;
+        background: -webkit-linear-gradient(top,blue,red);
+        color:#fff
+    }
+    .body{
+        width: 100px;
+        height: 100px;
+        background: black;
+        -webkit-box-reflect:below 0 -webkit-linear-gradient(transparent,transparent 50%,rgba(255,255,255,.3));
+        color: #fff;
+        margin-bottom: 20px;
+    }
+</style>
+<group>
+    <open title="这是标题">这是内容</open>
+    <open title="这是标题">这是内容</open>
+    <open title="这是标题">这是内容</open>
+</group>
+<!--
+    1.三个open方法都要归于他的父级管理
+    2.依赖父亲并且^上一级的，通过controller的方法，收集所有的子指令的作用域
+    3.当我点击其中一个，告诉父亲当前是我点的，其他人要关闭
+-->
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('open',function () {
+        return {
+            templateUrl:'tmpl/open.html',
+            transcule:true,
+            scope:{
+                tit:'@title',
+            }
+        }
+    })
+</script>
+</body>
+</html>
