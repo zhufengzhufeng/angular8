@@ -30,6 +30,18 @@
     <open title="这是标题">这是内容</open>
     <open title="这是标题">这是内容</open>
 </group>
+<div style="clear: both"></div>
+<group>
+    <open title="这是标题">这是内容</open>
+    <open title="这是标题">这是内容</open>
+</group>
+<div style="clear: both"></div>
+<group>
+    <open title="这是标题">这是内容</open>
+    <open title="这是标题">这是内容</open>
+    <open title="这是标题">这是内容</open>
+    <open title="这是标题">这是内容</open>
+</group>
 <!--
     1.三个open方法都要归于他的父级管理
     2.依赖父亲并且^上一级的，通过controller的方法，收集所有的子指令的作用域
@@ -38,10 +50,39 @@
 <script src="../node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
+    app.directive('group',function () {
+        return {
+            controller:function ($scope) {
+                var arr = []; //这个框是用来收集所有的子作用域的
+                this.collect = function (scope) {
+                    arr.push(scope);
+                    console.log(arr);
+                };
+                //你当前告诉我的作用域是谁，我可以将其他人关闭掉
+                this.tell = function (scope) {
+                    arr.forEach(function (s) { //如果不是当前点击的
+                        if(s!=scope)s.flag = false;
+                    })
+                }
+            }
+        }
+    });
     app.directive('open',function () {
         return {
+            require:'?^group',
+            //^先找自己找不到向上找， 找不到报错
+            //?找不到不报错
             templateUrl:'tmpl/open.html',
-            transcule:true,
+            transclude:true,
+            link:function (scope,element,attrs,groupCtrl) {
+                groupCtrl.collect(scope);
+                scope.flag = false;
+                scope.show = function () { //其他人告诉父亲要关闭掉,让自己显示或隐藏
+                    scope.flag=!scope.flag;
+                    //告诉父亲现在点的是我，把其他人关闭掉
+                    groupCtrl.tell(scope);//把自己告诉给父亲
+                }
+            },
             scope:{
                 tit:'@title',
             }
