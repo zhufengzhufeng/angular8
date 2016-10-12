@@ -8,7 +8,7 @@ npm install -g bower
 ```
 bower init
 ```
-
+  
 > 记录你安装的所有内容
 
 - 安装包，安装后默认会放在bower_componets的文件夹下
