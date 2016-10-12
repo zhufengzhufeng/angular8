@@ -24,9 +24,11 @@ bower install angular jquery --save  --save-dev
 - 再安装时会默认将下载的文件放入bowerrc指定的目录中
 
 ## ng-app
-- 告诉angular启动的范围，会创建一个$rootScope - > window (默认最大为html)
+- 告诉angular启动的范围，会创建一个$rootScope - > window (默认最大为html)  
+
 ## ng-model
-- 双向绑定，将数据绑定在街面上，只有页面可以更改内容的才可以进行双向绑定
+- 双向绑定，将数据绑定在街面上，只有页面可以更改内容的才可以进行双向绑定  
+
 ## ng-bind,ng-template,ng-cloak
 - ng-bind就是{{}}的全称，用法一样，必须设置在标签上
 - ng-bind-template 可以绑定多个数据
@@ -38,7 +40,8 @@ bower install angular jquery --save  --save-dev
 [ng-cloak]{
     display:none
 }
-```
+```  
+
 ## {{}}  
 
 - 表达式，用来取值和运算（简单的三元表达式）  
