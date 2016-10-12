@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body >
+<parent>{{name}}
+    <child></child>
+</parent>
+
+<script src="./lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('parent',function () {
+        return {
+            //这个方法就是用来让子指令来使用的
+            controller:function ($scope) {
+                $scope.name = 1
+                this.say = function () {
+                    alert('hello')
+                }
+            },
+            scope:{}
+        }
+    })
+    app.directive('child',function () {
+        return {
+            require:'?^parent', //先从自己的指令上找
+            link:function (scope,element,attrs,parentCtrl) {
+                parentCtrl.say();
+            }
+        }
+    })
+</script>
+
+
+
+
+<!--
+Element
+<my-text></my-text>
+class
+<div class="my-text"></div>
+-->
+</body>
+</html>

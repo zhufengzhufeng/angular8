@@ -8,7 +8,7 @@
 <!--Attribute-->
 <!--<div my-text></div>-->
 <!--Element-->
-<my-text n="name" f="fn(w)"></my-text>
+<my-text n="name" f="fn(w)">你好zfpx</my-text>
 <script src="./lib/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
@@ -22,7 +22,8 @@
         return {
             restrict:'E',
             //replace:true,
-            template:'<h1 ng-click="f({w:2})">hello{{name}}</h1>',
+            transclude:true,
+            template:'<h1 ng-click="f({w:2})"><span ng-transclude></span>hello{{name}}</h1>',
             //templateUrl:'src'
             link:function (scope,element,attrs) {
                 console.log(scope.name);

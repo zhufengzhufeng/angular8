@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body >
+<div ng-controller="ctrl" ng-if="flag">
+    {{name}}
+    <input type="text" ng-model="data">
+    <input type="text" ng-change="say()" ng-model="d">
+    <button ng-click="remove()">销毁</button>
+</div>
+<script src="./lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.run(function ($rootScope) {
+        $rootScope.flag = true;
+        $rootScope.remove = function () {
+            $rootScope.flag = false;
+        }
+    });
+    app.controller('ctrl',function ($scope,$interval,$timeout) {
+        $scope.$watch('data',function (newVal,oldVal) {
+            console.log(newVal,oldVal);
+        });
+        $scope.say = function () {
+            console.log($scope.d);
+        };
+        $scope.name = 1;
+        var t = $interval(function () {
+            //angular ng-click  setInterval 不会自动调用apply方法
+            //当值发生变化，我们需要通知angular值变了刷新视图
+            //$scope.$apply();
+        },1000);
+        console.log($scope);
+        //ng-change是通过事件触发的，不用一直观察
+        //watch是会增加监听者的
+        //ng-change只是事件，如果不能通过事件触发的，ng-change也不能执行
+        //$timeout
+        var timer = $timeout(function () {
+            $scope.name++;
+            $timeout.cancel(timer);//当定时器用完后需要清除定时器
+        },2000);
+        //当控制销毁的时候就关闭掉定时器
+        $scope.$on('$destroy',function () {
+            console.log('oh my die');
+            $interval.cancel(t);
+        });
+    });
+</script>
+</body>
+</html>

@@ -83,20 +83,45 @@ $scope.html = $sce.trustAsHtml(html)
 
 ## directive
 - restrict
+限制使用范围，ECMA, M一般不会使用
 - replace
+替换原指令，要替换的内容只能有一个根节点
 - template
 - templateUrl
+指定替换的模板
 - link
+```
+link:function(scope,element,attrs){
+scope表示当前的作用域
+element表示当前指令的元素，jq对象
+attrs当前指令上的所有属性
+}
+```
 - scope
-    - @
-    - &
-    - =
-- require
+    - @ 从当前指令上取属性对应的字符串，将值传递给指令中的scope（单向绑定）
+    - = 从当前指令上取属性对应的变量，将变量传递给指令中的scope(双向绑定)
+    - & 传递方法，传递参数时必须使用对象形式
+
+> 指令默认不会创建独立作用域，
+
 - transclude
+保留原指令中的内容，插入到带有ng-transclude的标签内（会创建独立作用域）
 
-## ng-show,ng-hide,ng-show
 
+- require指令和指令间的交互
+将自控制器和父控制器发生关系，父控制器要提供一个controller方法，让子类来调用,
+- ^先从自己身上找，找不到像上找，在找不到报错? 找不到不报错，传入为的null
+
+## ng-show,ng-hide,ng-if
+- ng-show/ng-hide
+频繁切换使用ng-show/ng-hide 只是切换样式，但是首次消耗性能较高，无论代码是否成立都会执行。
+- ng-if
+如果代码不成立则不运行内部代码，首次消耗性能较少，频繁切换时消耗性能较多，如果不成立dom消失，所以会产生独立作用域
 ## watch,apply
+- watch监控页面的变化，会输出原值和老值，当值变化就会触发watch的回调函数,true参数表示深度比较
+- apply调用angular的脏值检查机制，默认angular自动会调用，但是我们自己的代码不会执行，所以需要手动调用$degist
+
+> watch+apply 实现双向数据绑定的方法，最少执行两次
 
 ## $timeout,$interval,cancel
 
