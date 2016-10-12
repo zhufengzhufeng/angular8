@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<slider arrs="arrs">
+    <img ng-src="{{src}}" alt="">
+    <!--轮播图-->
+</slider>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('ctrl',function ($scope) {
+        $scope.arrs = ['red','blue','yellow']
+    });
+    app.directive('slider',function () {
+        return {
+            scope:{
+                arrs:'=arrs'
+            }
+        }
+    })
+</script>
+</body>
+</html>
