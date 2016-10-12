@@ -92,6 +92,7 @@ $scope.html = $sce.trustAsHtml(html)
     - &
     - =
 - require
+- transclude
 
 ## ng-show,ng-hide,ng-show
 
@@ -117,3 +118,17 @@ git checkout -b gh-pages(github规定的)
 505  git commit -m 'hello world'
 506  git push origin gh-pages
 ```
+
+## ng-class 
+
+## broadcast emit on
+
+## filter
+
+## 服务
+
+## http
+
+## ngRoute uiRoute
+
+## ionic + angular 

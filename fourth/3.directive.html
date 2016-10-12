@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-controller="myCtrl">
+<!--Attribute-->
+<!--<div my-text></div>-->
+<!--Element-->
+<my-text n="name" f="fn(w)"></my-text>
+<script src="./lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        $scope.name = 1;
+        $scope.fn = function (who) {
+            alert(who)
+        }
+    });
+    app.directive('myText',function () {
+        return {
+            restrict:'E',
+            //replace:true,
+            template:'<h1 ng-click="f({w:2})">hello{{name}}</h1>',
+            //templateUrl:'src'
+            link:function (scope,element,attrs) {
+                console.log(scope.name);
+                //scope当前作用域
+                //element 当前元素
+                //attrs 当前指令上的所有属性
+                element.css('border','1px dashed red');
+                //angular.element == $ //将原声dom转换成jqLite
+                //1.组件式指令
+                //2.装饰型指令
+            },
+            scope:{
+                //name:'@n' //字符串 单项
+                name:'=n',//引用的是控制器上的变量
+                f:'&'
+            },
+        }
+    })
+</script>
+
+
+
+
+<!--
+Element
+<my-text></my-text>
+class
+<div class="my-text"></div>
+-->
+</body>
+</html>
