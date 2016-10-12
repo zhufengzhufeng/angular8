@@ -15,6 +15,7 @@ bower init
 ```
 bower install angular jquery --save  --save-dev
 ```
+
 > 安装的时候会自动查找依赖的包进行下载
 
 ## 更改目录不产生到bower_components下
@@ -38,22 +39,30 @@ bower install angular jquery --save  --save-dev
     display:none
 }
 ```
-## {{}}
-- 表达式，用来取值和运算（简单的三元表达式）
+## {{}}  
+
+- 表达式，用来取值和运算（简单的三元表达式）  
+
 ## module
-- 模块通过angular对象创建模块，防止都定义在rootScope上污染全局变量
-## controller
+- 模块通过angular对象创建模块，防止都定义在rootScope上污染全局变量  
+
+## controller  
+
 - 一切从模块开始，通过模块来创建控制器，买一送一送一个作用域（在控制器中可以注入一些服务） 控制器一般采用数组方式。防止代码被压缩
-## $scope,$rootScope
+## $scope,$rootScope  
+
 - viewModel 实现双向数据绑定的 / $rootScope根作用域
-## ng-repeat
+## ng-repeat  
+
 - 遍历数据对象，要循环谁就写在谁身上，并且必须采用ng-repeat='xxx in xxx'，数组要追加track-by ($index),会产生新的作用域
-## ng-disabled ng-readonly
+## ng-disabled ng-readonly  
+
 - 禁用
-## ng-options
+## ng-options  
 - select as for in
 - 设置默认值要让select默认值为选中的value值
-## $sce 防止html不被渲染
+## $sce 防止html不被渲染  
+
 ```
 <div ng-bind-html="html"></div>
 $scope.html = $sce.trustAsHtml(html)
