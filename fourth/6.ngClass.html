@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .yellow{
+            background: yellow;
+        }
+        .background{
+            background: red;
+        }
+        .fontSize{
+            font-size: 40px;
+        }
+        .sty1{
+            background: blue;
+        }
+        .sty2{
+            background: green;
+        }
+    </style>
+</head>
+<body ng-controller="ctrl">
+<!--可以直接用{{}}方式来绑定数据-->
+<div class="{{background}}">angular baby</div>
+<!--通过ng-class进行绑定变量-->
+<div ng-class="background" class="yellow">angular baby</div>
+<!--ng-class和class是可以共存的,动态绑定会比静态的更生效一些-->
+<!--只能用于true，false两种格式-->
+<ul>
+    <li ng-repeat="a in arrs track by $index" ng-class="{true:'sty1',false:'sty2'}[$odd]">{{a}}</li>
+</ul>
+
+<div ng-class="{'background':false,'sty2':!false,'fontSize':true}">react</div>
+<!--style-->
+<div ng-style="{'background':'-webkit-linear-gradient(top,blue,red)','fontSize':'100px'}" ng-class="{'background':true,'font-size':'11111px'}">行内</div>
+<script src="./lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('ctrl',function ($scope) {
+        $scope.background = 'background';
+        $scope.arrs = ['1','2','3','4'];
+        $scope.flag = false;
+    });
+</script>
+</body>
+</html>

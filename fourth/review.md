@@ -10,7 +10,6 @@ npm install -g bower
 bower init
 ```  
 
-  
 > 记录你安装的所有内容
 
 - 安装包，安装后默认会放在bower_componets的文件夹下
@@ -143,17 +142,20 @@ git checkout -b gh-pages(github规定的)
 505  git commit -m 'hello world'
 506  git push origin gh-pages
 ```
+## ng-class  
+- class="{{}}"
+- ng-class="{true:'className',false:'className'}[flag]"
+- ng-class="{'className':flag,'className':!flag}"
+## ng-style
+- ng-style={'fontSize':'red'}
+## broadcast emit on  
 
-## ng-class 
+## filter  
 
-## broadcast emit on
+## 服务  
 
-## filter
+## http  
 
-## 服务
+## ngRoute uiRoute  
 
-## http
-
-## ngRoute uiRoute
-
-## ionic + angular 
+## ionic + angular  
