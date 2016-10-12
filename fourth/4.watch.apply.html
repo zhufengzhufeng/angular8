@@ -10,6 +10,8 @@
     <input type="text" ng-model="data">
     <input type="text" ng-change="say()" ng-model="d">
     <button ng-click="remove()">销毁</button>
+
+    {{name1}}{{name2}}
 </div>
 <script src="./lib/angular/angular.js"></script>
 <script>
@@ -28,11 +30,11 @@
             console.log($scope.d);
         };
         $scope.name = 1;
-        var t = $interval(function () {
+        /*var t = $interval(function () {
             //angular ng-click  setInterval 不会自动调用apply方法
             //当值发生变化，我们需要通知angular值变了刷新视图
             //$scope.$apply();
-        },1000);
+        },1000);*/
         console.log($scope);
         //ng-change是通过事件触发的，不用一直观察
         //watch是会增加监听者的
@@ -46,6 +48,21 @@
         $scope.$on('$destroy',function () {
             console.log('oh my die');
             $interval.cancel(t);
+        });
+
+        //为什么脏值检查至少要执行两次？只要值变化最少执行两次
+
+        //有可能在检查的时候，检查别人的时候，别人变化，会在回调函数中影响别人的变化，但是代码已经执行完成，不会再次检查，所以要在查一轮,直到没有变化为止，但是最多查10次
+        $scope.name1 = 1;
+        $scope.name2 = 1;
+        $timeout(function () {
+            $scope.name1 = Math.random()
+        },2000);
+        $scope.$watch('name1',function () {
+            $scope.name2 = Math.random();
+        });
+        $scope.$watch('name2',function () {
+            $scope.name1 = Math.random();
         });
     });
 </script>
