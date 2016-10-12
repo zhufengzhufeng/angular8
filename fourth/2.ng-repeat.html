@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body ng-controller="ctrl">
+<ul>
+    <li ng-repeat="a in arr track by $index" >
+        {{key = $index}}
+        {{a}} {{$index}} {{key}}
+    </li>
+</ul>
+<div ng-bind-html="html"></div>
+<select ng-model="a" ng-options="o.fe as o.client for o in options">
+</select>
+<script src="./lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('ctrl',function ($scope,$sce) {
+        $scope.arr = ['red','yello','blue'];
+        $scope.a = 2;
+        $scope.options = [
+                {fe:1,client:'苹果'},
+                {fe:2,client:'橘子'},
+                {fe:3,client:'鸭梨'},
+        ];
+        var html = '<h1>你是我的baby</h1>';
+        $scope.html  = $sce.trustAsHtml(html);
+    });
+</script>
+</body>
+</html>

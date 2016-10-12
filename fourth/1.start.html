@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfModel">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div ng-controller="firstCtrl as vm">
+    <!--<div ng-bind="vm.name"></div>-->
+    <div ng-bind-template="{{vm.name}}">1111</div>
+    <!--{{vm.name}}-->
+    <!--取值表达式 变量 三元 运算表达式-->
+    <div ng-cloak>
+        {{vm.name}}
+        <div>{{vm.name}}</div>
+    </div>
+    <style>
+        [ng-cloak]{
+            display: none;
+        }
+    </style>
+</div>
+<div ng-controller="secondCtrl">
+    <!--{{name}}-->
+</div>
+<script src="./lib/angular/angular.js"></script>
+<script>
+    //创建模块
+    var app = angular.module('zfModel',[]);
+    //创建作用域，创建控制器就会白送作用域
+    app.run(['$rootScope',function ($rootScope) {
+
+
+
+
+
+        $rootScope.age = 1;
+    }]);
+    app.controller('firstCtrl',function () {
+        this.name = 'zfpx1';  //this是当控制器的实例
+        //$scope.name = 'zfpx1';  //mvvm  vm ViewModel
+    });
+    app.controller('secondCtrl',function ($scope) {
+        $scope.name = 'zfpx2';
+    });
+</script>
+</body>
+</html>
