@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="one"></div>
+<div ng-controller="two"></div>
+<script src="./bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.config(function (calcProvider) {
+        calcProvider.currency = '%%';  {currency:'%%'}
+        console.log(2);
+    });
+   /* app.provider('calc',function () {
+        console.log(1);
+        this.currency = '&';
+        this.$get = function () {
+            this.currency = '&'; //这里的this是内部provider的实例
+            return {
+                '+':(a,b)=>{return this.currency +(a+b);}
+            };
+        });
+    })*/
+    app.factory('calc',function () {  {currency:'&'}
+       //this.currency = '&'; //这里的this是内部provider的实例
+       return {
+           '+':(a,b)=>{return this.currency +(a+b);}
+       };
+    });
+    //当注入服务时会执行$get方法
+    app.controller('one',function ($scope,calc) {
+        console.log(calc['+'](1,2));
+    });
+    app.controller('two',function ($scope) {
+        
+    })
+</script>
+</body>
+</html>

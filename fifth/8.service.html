@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="one"></div>
+<div ng-controller="two"></div>
+<script src="./bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.config(function (calc) {
+        calc.currency = '$';
+    });
+    app.factory('calc',function () {  {currency:'&'}
+       //this.currency = '&'; //这里的this是内部provider的实例
+       return {
+           '+':(a,b)=>{return this.currency +(a+b);}
+       };
+    });
+    //当注入服务时会执行$get方法
+    /*app.service('calc',function () {
+        //实例化service的函数返回的是factory返回的对象
+        this['+'] = function () {
+            return a+b;
+        };
+        this['-'] = function () {}
+    });*/
+   /* app.value('calc',{
+        '+':function (a,b) {
+            return a+b
+        }
+    });*/
+    app.constant('calc',{ //constant不是服务没有调用provider一系列的代码
+        '+':function (a,b) {
+            return this.currency+(a+b)
+        }
+    });
+    //把函数new了一下传给了factory
+    app.controller('one',function ($scope,calc) {
+        console.log(calc['+'](1,2));
+    });
+    app.controller('two',function ($scope) {
+        
+    });
+</script>
+</body>
+</html>

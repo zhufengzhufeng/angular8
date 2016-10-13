@@ -36,9 +36,8 @@
        this.currency = '&';
        return {
            '+':(a,b)=>{return this.currency +(a+b);}
-       }
+       };
     });
-
     app.controller('one',['$scope','calc',function ($scope,calc) {
         $scope.sum = calc['+'];
     }]);
