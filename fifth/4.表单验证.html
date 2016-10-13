@@ -24,6 +24,9 @@
     <div ng-show="myform.email.$error.required&&myform.email.$dirty" class="alert alert-warning">
         此项为必填项，需要填入内容
     </div>
+    <div ng-show="myform.email.$error.email" class="alert-info alert">
+        邮箱验证不成功
+    </div>
     <button class="bg-danger btn btn-lg">提交</button>
 </form>
 <pre>{{myform | json}}</pre>
