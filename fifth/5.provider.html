@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="one">
+    <input type="text" ng-model="a">
+    +
+    <input type="text" ng-model="b">
+    ={{sum(a,b)}}
+</div>
+<div ng-controller="two">
+    <input type="text" ng-model="e">
+    +
+    <input type="text" ng-model="f">
+    ={{sum(e,f)}}
+</div>
+<script src="./bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //rootScope可以共享数据的 ，尽量少用rootScope
+    //我们想自己写一个功能，为自己服务（共享方法）
+    //创建服务
+    //服务是可以配置的(只用provider可以配置)
+    app.config(function (calcProvider) {//在定义好的服务上配置服务，通过名字+Provider
+        //calcProvider是服务上构造函数的实例
+        calcProvider.currency = '钱';
+        console.log(2);
+    });
+    app.run(function ($rootScope,calc) { //run方法中的使用的服务和控制器中是一样的
+        console.log(3);
+    });
+    //provider > config> run
+    app.provider('calc',function () {
+        console.log(1);
+        this.currency = '$';
+        this.$get = function () { //当服务执行的时候会默认调用$get方法
+            return {
+                //将公有的方法配置到返回值中
+                '+':(a,b)=>this.currency+(parseInt(a)+parseInt(b))
+            }
+        }
+    });
+    //应用服务时先将服务注入到控制器中
+    app.controller('one',['$scope','calc',function ($scope,calc) {
+        //calc是return的对象
+        $scope.sum = calc['+']; //这里调用+法函数中的this是calc的对象
+    }]);
+    app.controller('two',['$scope','calc',function ($scope,calc) {
+        $scope.sum = calc['+'];
+    }])
+</script>
+</body>
+</html>

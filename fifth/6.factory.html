@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="one">
+    <input type="text" ng-model="a">
+    +
+    <input type="text" ng-model="b">
+    ={{sum(a,b)}}
+</div>
+<div ng-controller="two">
+    <input type="text" ng-model="e">
+    +
+    <input type="text" ng-model="f">
+    ={{sum(e,f)}}
+</div>
+<script src="./bower_components/angular/angular.js"></script>
+<script>
+    /*
+        provider 内要写明$get方法，当angular启动时会自动调用$get方法，返回对象（共享的方法） （可配置）
+        factory 是直接返回一个$get函数（不可配置）;
+    */
+    var app = angular.module('appModule',[]);
+    app.config(function (calcProvider) {
+        calcProvider.currency = '%%'; //在当前provider实例上增加一个属性
+        console.log(calcProvider);
+        console.log(1);
+    });
+    //provider > config > factory > run
+    app.factory('calc',function () { //factory调用的provider  直接执行provider里的$get方法
+        console.log(this); //这里也是$get来调用的 this也是provider构造函数的this
+        console.log(2);
+       this.currency = '&';
+       return {
+           '+':(a,b)=>{return this.currency +(a+b);}
+       };
+    });
+    app.controller('one',['$scope','calc',function ($scope,calc) {
+        $scope.sum = calc['+'];
+    }]);
+    app.controller('two',['$scope','calc',function ($scope,calc) {
+        $scope.sum = calc['+'];
+    }])
+</script>
+</body>
+</html>

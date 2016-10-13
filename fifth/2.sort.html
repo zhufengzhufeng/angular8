@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body  ng-controller="myCtrl">
+<!--根据query的值来搜索内容-->
+<!--debounce 延迟两秒刷新数据-->
+<!--失去焦点刷新-->
+延迟<input type="text" ng-model="query" ng-model-options="{debounce:2000}"> <br>
+失去焦点<input type="text" ng-model="query" ng-model-options="{updateOn:'blur'}">
+<table class="table table-bordered">
+    <tr>
+        <th>姓名</th>
+        <th ng-click="flag=!flag;language='math'">数学分数</th>
+        <th ng-click="flag=!flag;language='chinese'">语文分数</th>
+    </tr>
+    <!--将数据排序后再展示到页面上,
+        orderBy：param1 根据排序的属性 param2 是否倒序
+    -->
+    <!--在过滤时限定范围-->
+    <tr ng-repeat="score in scores  | orderBy:language:flag | filter:{math:query,chinese:query}">
+        <td>{{score.name}}</td>
+        <td>{{score.math}}</td>
+        <td>{{score.chinese}}</td>
+    </tr>
+    <!--filter 过滤数据-->
+</table>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[])
+            .controller('myCtrl',function ($scope) {
+
+                $scope.scores = [
+                        {name:'张三',math:2122,chinese:70},
+                        {name:'张三',math:21223,chinese:70},
+                        {name:'张二',math:20,chinese:90},
+                        {name:'王五',math:70,chinese:23}];
+            });
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="myCtrl">
+<!--过滤器，我们显示在页面上的东西 [{name,address,age,gender,hobby,birthday}],把一些数据过滤成我们想要的格式，不能更改源数据，防止其他地方使用时发生变化-->
+<!--|管道符-->
+<!--大小写转换-->
+{{'abcdefg' | uppercase}} <br>
+{{'ABCDEFG' | lowercase}} <br>
+<!--数字过滤器 参数为保留几位小数-->
+{{ 200123.201231 | number:2 }} <br>
+<!--过滤钱 $1  ￥2  ￡1 默认是美元-->
+<!--多个参数用:隔开 表示最低多少钱 默认两位-->
+{{200.123123123 | currency:'￥':1}} <br>
+<!--json过滤器-->
+<pre>{{arr | json}}</pre>
+<!--限制数据的位数-->
+{{'1234512345123456' | limitTo:3}} <br>
+<!--日期格式化-->
+{{1476325772713 | date:'yyyy-年MM月dd日 mm:ss'}}
+<!--orderBy 排序 根据xxx排序 跟在数据后面数组类型的-->
+
+<script src="bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //过滤器是不依赖于控制器的
+    app.controller('myCtrl',function ($scope) {
+        $scope.arr = {name:'zfpx',hobby:{lession:['js','angular','node']}}
+    });
+
+
+    //postman
+    //hostadmin
+</script>
+</body>
+</html>
