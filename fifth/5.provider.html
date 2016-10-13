@@ -23,16 +23,16 @@
     //rootScope可以共享数据的 ，尽量少用rootScope
     //我们想自己写一个功能，为自己服务（共享方法）
     //创建服务
-    //服务是可以配置的
+    //服务是可以配置的(只用provider可以配置)
     app.config(function (calcProvider) {//在定义好的服务上配置服务，通过名字+Provider
         //calcProvider是服务上构造函数的实例
         calcProvider.currency = '钱';
         console.log(2);
     });
-    app.run(function (calc) { //run方法中的使用的服务和控制器中是一样的
+    app.run(function ($rootScope,calc) { //run方法中的使用的服务和控制器中是一样的
         console.log(3);
     });
-    //provider>config>run
+    //provider > config> run
     app.provider('calc',function () {
         console.log(1);
         this.currency = '$';
