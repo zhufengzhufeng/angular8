@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<table class="table table-bordered" ng-controller="myCtrl">
+    <tr>
+        <th>姓名</th>
+        <th ng-click="flag=!flag;language='math'">数学分数</th>
+        <th ng-click="flag=!flag;language='chinese'">语文分数</th>
+    </tr>
+    <!--将数据排序后再展示到页面上,
+        orderBy：param1 根据排序的属性 param2 是否倒序
+    -->
+    <tr ng-repeat="score in scores | orderBy:language:flag">
+        <td>{{score.name}}</td>
+        <td>{{score.math}}</td>
+        <td>{{score.chinese}}</td>
+    </tr>
+</table>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[])
+            .controller('myCtrl',function ($scope) {
+
+                $scope.scores = [
+                        {name:'张三',math:20,chinese:70},
+                        {name:'李四',math:6,chinese:30},
+                        {name:'张二',math:100,chinese:90},
+                        {name:'王五',math:70,chinese:20}];
+            });
+</script>
+</body>
+</html>

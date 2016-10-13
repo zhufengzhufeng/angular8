@@ -148,9 +148,9 @@ git checkout -b gh-pages(github规定的)
 - ng-class="{'className':flag,'className':!flag}"
 ## ng-style
 - ng-style={'fontSize':'red'}
-## broadcast emit on  
+## filter 
 
-## filter  
+## broadcast emit on  
 
 ## 服务  
 
