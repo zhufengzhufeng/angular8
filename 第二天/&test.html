@@ -18,7 +18,7 @@
     app.directive('hello',function () {
         return {
             //用&符号传递参数时需要用对象的方式
-            template:`<button ng-click="s({who:'123',age:8})"></button>`,
+            template:``,
             scope:{
                 //要在自己家声明一个函数
                 s:'&'  //获取传递的那个函数
