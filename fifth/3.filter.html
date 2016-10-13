@@ -7,24 +7,35 @@
 <body ng-controller="myCtrl">
 {{'abcdefg' | captialize:-1}}
 <ul>
-    <li ng-repeat="a in arr | addage:3">
-        {{a.age}}
+    <li ng-repeat="a in arr">
+        {{a.age | addage:6}}
     </li>
 </ul>
+{{a}}
 <script src="bower_components/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
     //自定义过滤器，通过模块来创建
     //param1 过滤器的名字 函数
-    app.filter('captialize',function () {
+    //在自定义过滤器中可以使用angular自带的过滤器需要在原有的过滤器上增加Filter注入到函数中 limiteToFilter('',2)
+    app.filter('captialize',function (uppercaseFilter) {
+        //input代表要格式化的数据
+        //start capitalize后面跟的参数：后的参数
         return function (input,start) {
             //返回修改后的值
-            return input.slice(0,start).toUpperCase()+input.slice(start);
-        } 
+            return uppercaseFilter(input.slice(0,start))+input.slice(start);
+        }
     });
-    app.controller('myCtrl',function ($scope) {
-        $scope.arr = [{age:1},{age:2},{age:3}]
-    })
+    app.filter('addage',function () {
+        return function (input,age) {
+            return input+age;
+        }
+    });
+    app.controller('myCtrl',function ($scope,limitToFilter,dateFilter) {
+        $scope.arr = [{age:1},{age:2},{age:3}];
+        $scope.a = limitToFilter('12343421',2);
+        $scope.a = dateFilter('1231231231','dd:hh:mm:ss');
+    });
 </script>
 </body>
 </html>

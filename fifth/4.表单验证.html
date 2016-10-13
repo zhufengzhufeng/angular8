@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<div>
+<!--
+    如果要使用angular的验证 要先关闭h5的验证
+    要是angular验证 必须要增加ng-model 还要有name
+
+    进行表单验证 验证信息挂载在form表单的name属性上
+
+    1.验证输入框是否必填 ng-required='true'
+-->
+<form class="container" novalidate="novalidate" name="myform">
+    <div class="form-group">
+        <label for="email" class="control-label">用户名</label>
+        <input type="email" id="email" placeholder="请输入用户名" class="form-control" ng-model="email" name="email" ng-required="true">
+    </div>
+    <!--用来提示当前没有必填时显示出来-->
+    <div ng-show="myform.email.$error.required&&myform.email.$dirty" class="alert alert-warning">
+        此项为必填项，需要填入内容
+    </div>
+    <button class="bg-danger btn btn-lg">提交</button>
+</form>
+<pre>{{myform | json}}</pre>
+</div>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+</script>
+</body>
+</html>
