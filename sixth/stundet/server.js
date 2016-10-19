@@ -18,7 +18,7 @@ http.createServer(function (req,res) {
         switch (req.method){
             case 'GET':
                 if(id){//获取一个
-
+                    
                 }else {
                     res.end(JSON.stringify(students));
                 }
