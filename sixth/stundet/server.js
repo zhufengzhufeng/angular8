@@ -20,7 +20,7 @@ http.createServer(function (req,res) {
                 if(id){//获取一个
 
                 }else {
-                    res.end(JSON.stringify(students))
+                    res.end(JSON.stringify(students));
                 }
                 break;
             case 'POST':

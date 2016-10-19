@@ -25,8 +25,9 @@
         // get   query  remove  delete save update
     });
     app.controller('studentCtrl',function ($scope,student) {
-        student.get({id:1});//get请求
-    })
+        student.get();//get请求
+        //获取数据后展示在页面上
+    });
 </script>
 </body>
 </html>
