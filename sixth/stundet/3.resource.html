@@ -10,18 +10,48 @@
         width: 20%;
         display: inline-block;
     }
+    [ng-cloak]{
+        display: none;
+    }
 </style>
 <body ng-controller="studentCtrl">
-<ul class="list-group">
+<ul class="list-group" ng-cloak>
     <li class="list-group-item" ng-repeat="student in students">
         <span>{{student.name}}</span>
         <span><input type="text" ng-model="student.score"></span>
         <span>{{student.sex}}</span>
-        <button class="btn btn-danger">删除</button>
+        <button class="btn btn-danger" ng-click="del(student)">删除</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            修改
+        </button>
     </li>
 </ul>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script>
     //angular-resource
     //第二个参数为依赖的模块的名字 ngResource
@@ -42,6 +72,13 @@
         //使用query返回的是数组类型
         $scope.students = student.query();//get请求
         //获取数据后展示在页面上
+        $scope.del = function (s) {
+            //当删除后，在此调用查询方法，重新绑定数据
+            student.delete({id:s.id}).$promise.then(function () {
+                $scope.students = student.query();
+            }); //发送delete请求，并且参数为/student/1
+        };
+        //修改姓名和性别
     });
 </script>
 </body>

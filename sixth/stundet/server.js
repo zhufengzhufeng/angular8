@@ -18,7 +18,7 @@ http.createServer(function (req,res) {
         switch (req.method){
             case 'GET':
                 if(id){//获取一个
-                    
+
                 }else {
                     res.end(JSON.stringify(students));
                 }
@@ -26,6 +26,16 @@ http.createServer(function (req,res) {
             case 'POST':
                 break;
             case 'DELETE':
+                if(id){ //删除某一个
+                    id = id[1].slice(1); //获取需要删除的id
+                    students = students.filter(function (item) {
+                        return item.id!=id;
+                    });
+                    //最后返回一个空对象表示删除成功
+                    res.end(JSON.stringify({}));
+                }else{
+
+                }
                 break;
             case 'PUT':
                 break;
