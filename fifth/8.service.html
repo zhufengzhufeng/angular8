@@ -5,7 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<div ng-controller="one"></div>
+<div ng-controller="one">
+    {{sun}}
+</div>
 <div ng-controller="two"></div>
 <script src="./bower_components/angular/angular.js"></script>
 <script>
@@ -13,12 +15,12 @@
     app.config(function (calc) {
         calc.currency = '$';
     });
-    app.factory('calc',function () {  {currency:'&'}
+    /*app.factory('calc',function () {  {currency:'&'}
        //this.currency = '&'; //这里的this是内部provider的实例
        return {
            '+':(a,b)=>{return this.currency +(a+b);}
        };
-    });
+    });*/
     //当注入服务时会执行$get方法
     /*app.service('calc',function () {
         //实例化service的函数返回的是factory返回的对象
@@ -39,7 +41,7 @@
     });
     //把函数new了一下传给了factory
     app.controller('one',function ($scope,calc) {
-        console.log(calc['+'](1,2));
+        $scope.sun = calc['+'](1,2);
     });
     app.controller('two',function ($scope) {
         

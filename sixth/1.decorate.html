@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="myCtrl">
+<script src="./bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('myModule',[]);
+    app.config(function ($provide) {//$provide，angular提供的服务，此函数上有decorate方法
+        $provide.decorator('$timeout',function ($delegate) {
+            console.log($delegate); //最后我们要将装饰好的内容进行返回
+            //对log方法进行包装
+            var fn = $delegate;
+            $delegate = function () {
+                var list = Array.from(arguments);
+                list[1] = list[1]+2000;
+                fn.apply(null,list);
+            };
+            return $delegate;
+            //1.先保存以前的'
+            /*var fn = $delegate.log;
+            //2.在外面套一层函数
+            $delegate.log = function () {
+                var arr = Array.from(arguments);
+                arr.unshift(new Date());
+                fn.apply(null,arr);
+            };
+            //3.在函数中调用以前的函数
+            return $delegate;*/
+        })
+    });
+    app.controller('myCtrl',function ($scope,$log,$timeout) {
+        //$log.log('hello world','你好');
+        $timeout(function () {
+            console.log('ok');
+        },1000);
+        //每次调用$log.log方法时自动的给我们增加一个当前时间
+    });
+</script>
+</body>
+</html>
