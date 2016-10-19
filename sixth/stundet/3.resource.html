@@ -21,7 +21,7 @@
         <span><input type="text" ng-model="student.score"></span>
         <span>{{student.sex}}</span>
         <button class="btn btn-danger" ng-click="del(student)">删除</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="update(student)">
             修改
         </button>
     </li>
@@ -36,8 +36,8 @@
                 <h4 class="modal-title" id="myModalLabel">修改信息</h4>
             </div>
             <div class="modal-body">
-                学生姓名<input type="text">
-                学生性别 <input type="text">
+                学生姓名<input type="text" ng-model="user.name">
+                学生性别 <input type="text" ng-model="user.sex">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -79,7 +79,13 @@
                 $scope.students = student.query();
             }); //发送delete请求，并且参数为/student/1
         };
-        //修改姓名和性别
+        //修改姓名和性别,将数据放到输入框中
+        $scope.update = function (s) {
+            //可以使用JSON.parse 和stringify 进行克隆对象
+            $scope.user = JSON.parse(JSON.stringify(s));
+            //是不是克隆一份在赋予给user
+        };
+        //点击按钮将写好的值进行修改
     });
 </script>
 </body>
