@@ -38,6 +38,26 @@ http.createServer(function (req,res) {
                 }
                 break;
             case 'PUT':
+                if(id){
+                    id = id[1].slice(1); //获取要修改的id
+                    //获取请求体
+                    var str = '';
+                    req.on('data',function (data) {
+                        str+=data;
+                    });
+                    req.on('end',function () {
+                        //str为要修改后的内容
+                        str = JSON.parse(str).s;
+                        students = students.map(function (item) {
+                            if(item.id == id){
+                                return str
+                            }else {
+                                return item;
+                            }
+                        }); //返回修改的那个值
+                        res.end(JSON.stringify(str));
+                    });
+                }
                 break;
         }
     }
@@ -52,4 +72,4 @@ http.createServer(function (req,res) {
             }
         });
     }
-}).listen(8080);
+}).listen(3000);
