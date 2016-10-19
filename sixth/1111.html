@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function callback(data) {
+        console.log(data);
+    }
+    // http://localhost:8080/jsonp?cb=callback
+    var script = document.createElement('script');
+    script.src = 'http://localhost:8080/jsonp?cb=callback';
+    document.body.appendChild(script);
+</script>
+</body>
+</html>

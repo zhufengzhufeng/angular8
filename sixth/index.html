@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="myCtrl">
+<script src="bower_components/angular/angular.js"></script>
+<script>
+    //$.ajax({})  $.get()   $.post()
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope,$http) {
+        //jsonp 跨域  创建一个script标签，通过后台服务传递一个函数执行（数据）的字符串，在前台执行，调用前端写好的方法执行
+        console.log(1000);
+        $http.jsonp('http://localhost:8080/jsonp?callback=JSON_CALLBACK').success(function (data) {
+             console.log(data);
+        });
+        //如果callback=JSON_CALLBACK 换一个名字不会执行success方法
+        $http.jsonp('http://localhost:8080/jsonp?callback=JSON_CALLBACK').success(function (data) {
+            console.log(data);
+        });
+    });
+</script>
+</body>
+</html>
