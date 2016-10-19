@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div ng-controller="ctrl1">
+    {{}}
+</div>
+<div ng-controller="ctrl2">
+    {{}}
+</div>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('ctrl1',function ($scope,$http) {
+        $http.get('http://localhost:8080/book',function (data) {
+            console.log(data);
+        })
+    });
+    app.controller('ctrl2',function ($scope,$http) {
+        $http.get('http://localhost:8080/book',function (data) {
+            console.log(data);
+        })
+        //修改id号为1的学生让她性别为女
+        put :http://localhost:8080/student/1     请求体中gender=0
+        post :http://localhost:8080/student/1     请求体中gender=0
+        delete :http://localhost:8080/student/1
+        delete :http://localhost:8080/student
+        get :http://localhost:8080/student/1
+        get :http://localhost:8080/student
+
+        $http.post('http://localhost:8080/book/1',{data:[1,2,3]},function (data) {
+            console.log(data);
+        });
+    });
+    //factory 里面要封装四个方法 get delete put post 有是否传递参数
+    //第一要封装共有逻辑 根据http四个动词创建不同的方法
+
+    //angular-resource 可以将所有功能封装到服务里，实现公有化
+</script>
+</body>
+</html>

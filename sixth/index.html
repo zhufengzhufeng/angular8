@@ -11,14 +11,33 @@
     var app = angular.module('appModule',[]);
     app.controller('myCtrl',function ($scope,$http) {
         //jsonp 跨域  创建一个script标签，通过后台服务传递一个函数执行（数据）的字符串，在前台执行，调用前端写好的方法执行
-        console.log(1000);
-        $http.jsonp('http://localhost:8080/jsonp?callback=JSON_CALLBACK').success(function (data) {
-             console.log(data);
-        });
-        //如果callback=JSON_CALLBACK 换一个名字不会执行success方法
+        //如果callback=JSON_CALLBACK 换一个名字不会执行success方法,并且需要增加widow上的方法，否则会报错
         $http.jsonp('http://localhost:8080/jsonp?callback=JSON_CALLBACK').success(function (data) {
             console.log(data);
         });
+        //get post
+        //获取所有 /getBook  /getOneBook  /deleteBook /deleteOneBook
+        //获取单个
+        // GET 查询 /book   /book/1
+        // POST 保存 /book  保存书
+        // PUT /book  修改一本书
+        // DELETE  删除  /book  /book/1 删除一本
+        //restful 表征状态转换
+        //通过四个动词和传递的参数来表现做的是什么操作
+        $http.get('http://localhost:8080/book').success(function (data) {
+            //angular会将字符串转换成对象
+            console.log(typeof data);
+        });
+        $http.post('http://localhost:8080/saveBook',
+                {data:[4,5,6]}
+        ).success(function (data) {
+            //angular会将字符串转换成对象
+            console.log(typeof data);
+        });
+
+
+
+
     });
 </script>
 </body>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="studentCtrl">
+<ul class="list-group">
+    <li class="list-group-item"></li>
+</ul>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script>
+    //angular-resource
+    //第二个参数为依赖的模块的名字 ngResource
+    var app = angular.module('appModule',['ngResource']);
+    app.factory('student',function ($resource) {
+        // /student/:id   /student/1  /student
+        return $resource('/student/:id',{id:'@id'},{
+            update:{ //默认没有update方法，我们需要自己增加一个
+                'method':'PUT'
+            }
+        });
+        // get   query  remove  delete save update
+    });
+    app.controller('studentCtrl',function ($scope,student) {
+        student.get({id:1});//get请求
+    })
+</script>
+</body>
+</html>
