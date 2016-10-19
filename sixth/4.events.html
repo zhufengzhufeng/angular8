@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="parent">
+    总价:<input type="text" ng-model="total">
+    <div ng-controller="child">
+        单价:{{product.price}} <br>
+        名称:{{product.name}} <br>
+        <input type="text" ng-model="product.count">
+    </div>
+</div>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('parent',function ($scope) {
+        $scope.total = 3;
+        //通过父亲广播给儿子，自己肯定也知道
+        $scope.$watch('total',function (newVal,oldVal) {
+            //向下通知，事件名和修改后的值
+            $scope.$broadcast('修改总价',newVal);
+            $scope.$on('修改总价',function () {
+                console.log('我也能听到');//自己广播的内容自己也知道
+            });
+        });
+    });
+    app.controller('child',function ($scope) {
+        $scope.product = {name:'火车',price:3,count:1}
+        $scope.$on('修改总价',function (e,data) {//data我们接受到的数据
+            $scope.product.count = data/$scope.product.price;
+        });
+        //儿子数据变化，要通知老子进行更改 $emit 发射数据时，自己也知道
+
+    });
+    //angular中的事件 $emit  $on $broadcast
+    //控制器不能复用，但是控制器还要交互数据 $rootScope,factory,通过事件进行交互
+</script>
+</body>
+</html>

@@ -33,8 +33,6 @@ http.createServer(function (req,res) {
                     });
                     //最后返回一个空对象表示删除成功
                     res.end(JSON.stringify({}));
-                }else{
-
                 }
                 break;
             case 'PUT':
@@ -50,7 +48,7 @@ http.createServer(function (req,res) {
                         str = JSON.parse(str).s;
                         students = students.map(function (item) {
                             if(item.id == id){
-                                return str
+                                return str;
                             }else {
                                 return item;
                             }
