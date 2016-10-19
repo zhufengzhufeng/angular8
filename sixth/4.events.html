@@ -10,7 +10,7 @@
     <div ng-controller="child">
         单价:{{product.price}} <br>
         名称:{{product.name}} <br>
-        <input type="text" ng-model="product.count">
+        <input type="text" ng-model="product.count" ng-change="change(product.count)">
     </div>
 </div>
 <script src="bower_components/angular/angular.js"></script>
@@ -26,6 +26,10 @@
                 console.log('我也能听到');//自己广播的内容自己也知道
             });
         });
+        $scope.$on('修改数量',function (e,data) {
+            console.log(data);
+            $scope.total = data;
+        });
     });
     app.controller('child',function ($scope) {
         $scope.product = {name:'火车',price:3,count:1}
@@ -33,10 +37,17 @@
             $scope.product.count = data/$scope.product.price;
         });
         //儿子数据变化，要通知老子进行更改 $emit 发射数据时，自己也知道
-
+        $scope.change = function (value) {
+            //通过修改的数量发送给总价
+            $scope.$emit('修改数量',value*$scope.product.price);
+        };
+        $scope.$on('修改数量',function () {
+            console.log('哈哈  修改了');
+        });
     });
     //angular中的事件 $emit  $on $broadcast
     //控制器不能复用，但是控制器还要交互数据 $rootScope,factory,通过事件进行交互
+    //平级交互数据可以通过向上发射 在通过父级向下发射事件
 </script>
 </body>
 </html>
