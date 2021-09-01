@@ -18,15 +18,15 @@
     </tr>
     <tr ng-repeat="product in products">
         <td><input type="checkbox" ng-model="product.selected" ng-click="selectOne()"></td>
-        <td>{{product.name}}</td>
+        <td>{{product?.name}}</td>
         <td>
-            <button ng-click="product.count=product.count-1" ng-disabled="product.count<=1">-</button>
+            <button ng-click="product?.count=product?.count-1" ng-disabled="product.count<=1">-</button>
             <!--ng-disabled 如果为true的时候此按钮会被禁用掉,ng-readonly="true"表示仅读-->
-            <input type="text" ng-model="product.count" ng-readonly="true">
-            <button ng-click="product.count=product.count+1">+</button>
+            <input type="text" ng-model="product?.count" ng-readonly="true">
+            <button ng-click="product?.count=product?.count+1">+</button>
         </td>
-        <td>{{product.price}}</td>
-        <td>{{product.price*product.count}}</td>
+        <td>{{product?.price}}</td>
+        <td>{{product?.price*product?.count}}</td>
         <!--将要删除的数据传递到方法中-->
         <td><button class="btn btn-danger" ng-click="del(product)">删除</button></td>
     </tr>
